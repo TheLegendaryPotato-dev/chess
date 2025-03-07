@@ -1,4 +1,7 @@
-
+//Yuna Cho: 
+// March 6th 2025
+//Project chess i
+// log: https://docs.google.com/document/d/1LC4giMF4OoGqneJzLoMXSrGRGkpov0zpOFFM_ymX0Z4/edit?tab=t.0
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -59,8 +62,18 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         this.addMouseMotionListener(this);
 
         //TO BE IMPLEMENTED FIRST
-     
-      //for (.....)  
+        for (int i = 0; i < board.length; i++){
+            for (int j = 0; j < board[i].length; j++){
+            if((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1))
+            {
+                board[i][j]= new Square(this, true, i, j);
+            }
+            else{
+                board[i][j]= new Square(this, false, i,j);
+            }
+            this.add(board[i][j]);
+        }
+        }  
 //        	populate the board with squares here. Note that the board is composed of 64 squares alternating from 
 //        	white to black.
 
@@ -71,18 +84,39 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         this.setMinimumSize(this.getPreferredSize());
         this.setSize(new Dimension(400, 400));
 
-        whiteTurn = true;
+        whiteTurn = false;
 
     }
 
     
 	//set up the board such that the black pieces are on one side and the white pieces are on the other.
 	//since we only have one kind of piece for now you need only set the same number of pieces on either side.
-	//it's up to you how you wish to arrange your pieces.
+	//it's up to you how you wish to arrange your pieces. rook, knight, bishop, queen, king
     private void initializePieces() {
-    	
-    	board[0][0].put(new Piece(true, RESOURCES_WKING_PNG));
-
+        //white
+    	board[0][0].put(new Piece(true, RESOURCES_WROOK_PNG));//rook
+        board[0][1].put(new Piece(true, RESOURCES_WKNIGHT_PNG));//knight
+        board[0][2].put(new Piece(true, RESOURCES_WBISHOP_PNG));//bishop
+        board[0][3].put(new Piece(true, RESOURCES_WQUEEN_PNG));//queen
+        board[0][4].put(new Piece(true, RESOURCES_WKING_PNG));//king
+        board[0][5].put(new Piece(true, RESOURCES_WBISHOP_PNG));//bishop
+        board[0][6].put(new Piece(true, RESOURCES_WKNIGHT_PNG));//knight
+        board[0][7].put(new Piece(true, RESOURCES_WROOK_PNG));//rook
+        for(int i = 0; i < board.length; i++){
+            board[1][i].put(new Piece(true, RESOURCES_WPAWN_PNG));//pawns
+        }
+        //black
+        board[7][0].put(new Piece(false, RESOURCES_BROOK_PNG));//rook
+        board[7][1].put(new Piece(false, RESOURCES_BKNIGHT_PNG));//knight
+        board[7][2].put(new Piece(false, RESOURCES_BBISHOP_PNG));//bishop
+        board[7][3].put(new Piece(false, RESOURCES_BQUEEN_PNG));//queen
+        board[7][4].put(new Piece(false, RESOURCES_BKING_PNG));//king
+        board[7][5].put(new Piece(false, RESOURCES_BBISHOP_PNG));//bishop
+        board[7][6].put(new Piece(false, RESOURCES_BKNIGHT_PNG));//knight
+        board[7][7].put(new Piece(false, RESOURCES_BROOK_PNG));//rook
+        for(int i = 0; i < board.length; i++){
+            board[6][i].put(new Piece(false, RESOURCES_BPAWN_PNG));//pawns
+        }
     }
 
     public Square[][] getSquareArray() {
@@ -151,8 +185,27 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         Square endSquare = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));
         
         //using currPiece
-        
+        if (currPiece != null){
+         if (currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)){
+            // failed code trying to fix issue; endSquare = null;
+            endSquare.put(currPiece);
+            fromMoveSquare.put(null);
+            whiteTurn = false;
+         }
+         if (currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)){
+            // failed code trying to fix issue; endSquare = null;
+            endSquare.put(currPiece);
+            fromMoveSquare.put(null);
+            whiteTurn = true;
+         }
+        }
        
+        //loop through the board and for every square say s.setBorder(null)
+    for(int i = 0; i < board.length; i++){
+        for (int j = 0; j < board[i].length; j++){
+                board[i][j].setBorder(null);
+        }
+    }
         fromMoveSquare.setDisplay(true);
         currPiece = null;
         repaint();
@@ -162,6 +215,13 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     public void mouseDragged(MouseEvent e) {
         currX = e.getX() - 24;
         currY = e.getY() - 24;
+       
+        if(currPiece != null){
+            System.out.println(currPiece.getLegalMoves(this, fromMoveSquare));
+            for(Square s: currPiece.getLegalMoves(this, fromMoveSquare)){
+                s.setBorder(BorderFactory.createLineBorder(Color.magenta));
+            }
+        }
 
         repaint();
     }
