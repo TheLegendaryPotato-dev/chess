@@ -86,7 +86,7 @@ public class Piece {
             //your right: pawn moves one down, one right
             moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()+1]);
           }//capture starts
-        if(start.getRow()>0 && b.getSquareArray()[start.getRow()-1][start.getCol()].isOccupied()== true && b.getSquareArray()[start.getRow()+1][start.getCol()].getOccupyingPiece().getColor()==true){
+        if(start.getRow()-1>0 && b.getSquareArray()[start.getRow()-1][start.getCol()].isOccupied()== true && b.getSquareArray()[start.getRow()-1][start.getCol()].getOccupyingPiece().getColor()==true){
           //your right: pawn moves one down and captures an opposing piece 
           moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()]);
         }
