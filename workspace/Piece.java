@@ -71,22 +71,24 @@ public class Piece {
     //returns an arraylist of squares which are legal to move to
     //please note that your piece must have some sort of logic. Just being able to move to every square on the board is not
     //going to score any points.
+
+    //anti pawn- captures forward and moves diagonally, but only moves forward (relative to the player's colour)
     public ArrayList<Square> getLegalMoves(Board b, Square start){
       ArrayList<Square> moves = new ArrayList();
 // for black
 // for non-capturing
       if(color != true){
-        System.out.println(b.getSquareArray()[start.getRow()-1][start.getCol()-1].isOccupied());
-        if(start.getCol()>0 && start.getRow()>0 && b.getSquareArray()[start.getRow()-1][start.getCol()-1].isOccupied()==false){
-            //your right: pawn moves one down, one right
-            moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()-1]);
+       // System.out.println(b.getSquareArray()[start.getRow()-1][start.getCol()-1].isOccupied());
+        if(start.getCol()+1<8 && start.getRow()-1>=0 && b.getSquareArray()[start.getRow()-1][start.getCol()+1].isOccupied()==false){
+            //your right: pawn moves one up, one right
+            moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()+1]);
           }
         
-          if(start.getCol()<8 && start.getRow()>0 && b.getSquareArray()[start.getRow()-1][start.getCol()+1].isOccupied()==false){
-            //your right: pawn moves one down, one right
-            moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()+1]);
+          if(start.getCol()-1>=0 && start.getRow()-1>=0 && b.getSquareArray()[start.getRow()-1][start.getCol()-1].isOccupied()==false){
+            //your right: pawn moves one down, one left
+            moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()-1]);
           }//capture starts
-        if(start.getRow()-1>0 && b.getSquareArray()[start.getRow()-1][start.getCol()].isOccupied()== true && b.getSquareArray()[start.getRow()-1][start.getCol()].getOccupyingPiece().getColor()==true){
+        if(start.getRow()-1>=0 && b.getSquareArray()[start.getRow()-1][start.getCol()].isOccupied()== true && b.getSquareArray()[start.getRow()-1][start.getCol()].getOccupyingPiece().getColor()==true){
           //your right: pawn moves one down and captures an opposing piece 
           moves.add(b.getSquareArray()[start.getRow()-1][start.getCol()]);
         }
@@ -94,16 +96,16 @@ public class Piece {
       //for white
       //for noncapture
        if(color == true){
-        System.out.println(b.getSquareArray()[start.getRow()+1][start.getCol()-1].isOccupied());
-        if(start.getCol()>0 && start.getRow()<7 && b.getSquareArray()[start.getRow()+1][start.getCol()-1].isOccupied()==false){
-            //your right: pawn moves one down, one right
+        //System.out.println(b.getSquareArray()[start.getRow()+1][start.getCol()-1].isOccupied());
+        if(start.getCol()-1>=0 && start.getRow()+1<8 && b.getSquareArray()[start.getRow()+1][start.getCol()-1].isOccupied()==false){
+            //your right: pawn moves one down, one left
             moves.add(b.getSquareArray()[start.getRow()+1][start.getCol()-1]);
           }
-          if(start.getCol()>0 && start.getRow()<7 && b.getSquareArray()[start.getRow()+1][start.getCol()+1].isOccupied()==false){
-            //your right: pawn moves one down, one left
+          if(start.getCol()+1<8 && start.getRow()+1<8 && b.getSquareArray()[start.getRow()+1][start.getCol()+1].isOccupied()==false){
+            //your right: pawn moves one down, one right
             moves.add(b.getSquareArray()[start.getRow()+1][start.getCol()+1]);
           }//capture starts
-          if(start.getRow()> 0 && b.getSquareArray()[start.getRow()+1][start.getCol()].isOccupied()== true && b.getSquareArray()[start.getRow()+1][start.getCol()].getOccupyingPiece().getColor()==false){
+          if(start.getRow()+1<8 && b.getSquareArray()[start.getRow()+1][start.getCol()].isOccupied()== true && b.getSquareArray()[start.getRow()+1][start.getCol()].getOccupyingPiece().getColor()==false){
             //your right: pawn moves one down and captures an opposing piece 
             moves.add(b.getSquareArray()[start.getRow()+1][start.getCol()]);
           }

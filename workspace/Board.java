@@ -69,7 +69,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 board[i][j]= new Square(this, true, i, j);
             }
             else{
-                board[i][j]= new Square(this, false, i,j);
+                board[i][j]= new Square(this, false, i, j);
             }
             this.add(board[i][j]);
         }
@@ -186,17 +186,11 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         
         //using currPiece
         if (currPiece != null){
-         if (currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)){
+         if (currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)&& whiteTurn == currPiece.getColor()){
             // failed code trying to fix issue; endSquare = null;
             endSquare.put(currPiece);
             fromMoveSquare.put(null);
-            whiteTurn = false;
-         }
-         if (currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)){
-            // failed code trying to fix issue; endSquare = null;
-            endSquare.put(currPiece);
-            fromMoveSquare.put(null);
-            whiteTurn = true;
+            whiteTurn = !whiteTurn;
          }
         }
        
