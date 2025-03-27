@@ -17,10 +17,10 @@ import javax.imageio.ImageIO;
 
 //you will need to implement two functions in this file.
 public class AntiPawn extends Piece {
-  private boolean color;
+
     public AntiPawn(boolean color, String img_file) {
        super(color, img_file);
-       this.color = color;
+       
     }
     
     public String toString() {
