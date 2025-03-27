@@ -94,28 +94,28 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	//it's up to you how you wish to arrange your pieces. rook, knight, bishop, queen, king
     private void initializePieces() {
         //white
-    	board[0][0].put(new Piece(true, RESOURCES_WROOK_PNG));//rook
-        board[0][1].put(new Piece(true, RESOURCES_WKNIGHT_PNG));//knight
-        board[0][2].put(new Piece(true, RESOURCES_WBISHOP_PNG));//bishop
-        board[0][3].put(new Piece(true, RESOURCES_WQUEEN_PNG));//queen
-        board[0][4].put(new Piece(true, RESOURCES_WKING_PNG));//king
-        board[0][5].put(new Piece(true, RESOURCES_WBISHOP_PNG));//bishop
-        board[0][6].put(new Piece(true, RESOURCES_WKNIGHT_PNG));//knight
-        board[0][7].put(new Piece(true, RESOURCES_WROOK_PNG));//rook
+    	board[0][0].put(new AntiPawn(true, RESOURCES_WROOK_PNG));//rook
+        board[0][1].put(new AntiPawn(true, RESOURCES_WKNIGHT_PNG));//knight
+        board[0][2].put(new AntiPawn(true, RESOURCES_WBISHOP_PNG));//bishop
+        board[0][3].put(new AntiPawn(true, RESOURCES_WQUEEN_PNG));//queen
+        board[0][4].put(new AntiPawn(true, RESOURCES_WKING_PNG));//king
+        board[0][5].put(new AntiPawn(true, RESOURCES_WBISHOP_PNG));//bishop
+        board[0][6].put(new AntiPawn(true, RESOURCES_WKNIGHT_PNG));//knight
+        board[0][7].put(new AntiPawn(true, RESOURCES_WROOK_PNG));//rook
         for(int i = 0; i < board.length; i++){
-            board[1][i].put(new Piece(true, RESOURCES_WPAWN_PNG));//pawns
+            board[1][i].put(new AntiPawn(true, RESOURCES_WPAWN_PNG));//pawns
         }
         //black
-        board[7][0].put(new Piece(false, RESOURCES_BROOK_PNG));//rook
-        board[7][1].put(new Piece(false, RESOURCES_BKNIGHT_PNG));//knight
-        board[7][2].put(new Piece(false, RESOURCES_BBISHOP_PNG));//bishop
-        board[7][3].put(new Piece(false, RESOURCES_BQUEEN_PNG));//queen
-        board[7][4].put(new Piece(false, RESOURCES_BKING_PNG));//king
-        board[7][5].put(new Piece(false, RESOURCES_BBISHOP_PNG));//bishop
-        board[7][6].put(new Piece(false, RESOURCES_BKNIGHT_PNG));//knight
-        board[7][7].put(new Piece(false, RESOURCES_BROOK_PNG));//rook
+        board[7][0].put(new AntiPawn(false, RESOURCES_BROOK_PNG));//rook
+        board[7][1].put(new AntiPawn(false, RESOURCES_BKNIGHT_PNG));//knight
+        board[7][2].put(new AntiPawn(false, RESOURCES_BBISHOP_PNG));//bishop
+        board[7][3].put(new AntiPawn(false, RESOURCES_BQUEEN_PNG));//queen
+        board[7][4].put(new AntiPawn(false, RESOURCES_BKING_PNG));//king
+        board[7][5].put(new AntiPawn(false, RESOURCES_BBISHOP_PNG));//bishop
+        board[7][6].put(new AntiPawn(false, RESOURCES_BKNIGHT_PNG));//knight
+        board[7][7].put(new AntiPawn(false, RESOURCES_BROOK_PNG));//rook
         for(int i = 0; i < board.length; i++){
-            board[6][i].put(new Piece(false, RESOURCES_BPAWN_PNG));//pawns
+            board[6][i].put(new AntiPawn(false, RESOURCES_BPAWN_PNG));//pawns
         }
     }
 
