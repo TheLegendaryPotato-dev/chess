@@ -87,36 +87,41 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         whiteTurn = false;
 
     }
-
+    
     
 	//set up the board such that the black pieces are on one side and the white pieces are on the other.
 	//since we only have one kind of piece for now you need only set the same number of pieces on either side.
 	//it's up to you how you wish to arrange your pieces. rook, knight, bishop, queen, king
     private void initializePieces() {
         //white
-    	board[0][0].put(new AntiPawn(true, RESOURCES_WROOK_PNG));//rook
-        board[0][1].put(new AntiPawn(true, RESOURCES_WKNIGHT_PNG));//knight
-        board[0][2].put(new AntiPawn(true, RESOURCES_WBISHOP_PNG));//bishop
-        board[0][3].put(new AntiPawn(true, RESOURCES_WQUEEN_PNG));//queen
-        board[0][4].put(new AntiPawn(true, RESOURCES_WKING_PNG));//king
-        board[0][5].put(new AntiPawn(true, RESOURCES_WBISHOP_PNG));//bishop
-        board[0][6].put(new AntiPawn(true, RESOURCES_WKNIGHT_PNG));//knight
-        board[0][7].put(new AntiPawn(true, RESOURCES_WROOK_PNG));//rook
+    	board[0][0].put(new CheckerPawn(true, RESOURCES_WROOK_PNG));//CheckerPawn replaces rook
+        board[0][1].put(new Cone(true, RESOURCES_WKNIGHT_PNG));//cone replaces knight
+        board[0][2].put(new Slime(true, RESOURCES_WBISHOP_PNG));// Slime replaces bishop
+        board[0][3].put(new Helicopter(true, RESOURCES_WQUEEN_PNG));// the king loves his Helicopter more than the queen
+        board[0][4].put(new King(true, RESOURCES_WKING_PNG));//king
+        board[0][5].put(new Slime(true, RESOURCES_WBISHOP_PNG));// Slime replaces bishop
+        board[0][6].put(new Cone(true, RESOURCES_WKNIGHT_PNG));//cone replaces knight
+        board[0][7].put(new CheckerPawn(true, RESOURCES_WROOK_PNG));//CheckerPawn replaces rook
         for(int i = 0; i < board.length; i++){
-            board[1][i].put(new AntiPawn(true, RESOURCES_WPAWN_PNG));//pawns
+            board[1][i].put(new AntiPawn(true, RESOURCES_WPAWN_PNG));//my pawns
         }
         //black
-        board[7][0].put(new AntiPawn(false, RESOURCES_BROOK_PNG));//rook
-        board[7][1].put(new AntiPawn(false, RESOURCES_BKNIGHT_PNG));//knight
-        board[7][2].put(new AntiPawn(false, RESOURCES_BBISHOP_PNG));//bishop
-        board[7][3].put(new AntiPawn(false, RESOURCES_BQUEEN_PNG));//queen
-        board[7][4].put(new AntiPawn(false, RESOURCES_BKING_PNG));//king
-        board[7][5].put(new AntiPawn(false, RESOURCES_BBISHOP_PNG));//bishop
-        board[7][6].put(new AntiPawn(false, RESOURCES_BKNIGHT_PNG));//knight
-        board[7][7].put(new AntiPawn(false, RESOURCES_BROOK_PNG));//rook
+        board[7][0].put(new CheckerPawn(false, RESOURCES_BROOK_PNG));//CheckerPawn replaces rook
+        board[7][1].put(new Cone(false, RESOURCES_BKNIGHT_PNG));//cone replaces knight
+        board[7][2].put(new Slime(false, RESOURCES_BBISHOP_PNG));// Slime replaces bishop
+        board[7][3].put(new Helicopter(false, RESOURCES_BQUEEN_PNG));// the king loves his Helicopter more than the queen
+        board[7][4].put(new King(false, RESOURCES_BKING_PNG));//king
+        board[7][5].put(new Slime(false, RESOURCES_BBISHOP_PNG));// Slime replaces bishop
+        board[7][6].put(new Cone(false, RESOURCES_BKNIGHT_PNG));//cone replaces knight
+        board[7][7].put(new CheckerPawn(false, RESOURCES_BROOK_PNG));//CheckerPawn replaces rook
         for(int i = 0; i < board.length; i++){
-            board[6][i].put(new AntiPawn(false, RESOURCES_BPAWN_PNG));//pawns
+            board[6][i].put(new AntiPawn(false, RESOURCES_BPAWN_PNG));//my pawns
         }
+    }
+	    //precondition - the board is initialized and contains a king of either color. The boolean kingColor corresponds to the color of the king we wish to know the status of.
+            //postcondition - returns true of the king is in check and false otherwise.
+	    public boolean isInCheck(boolean kingColor){
+            return false;
     }
 
     public Square[][] getSquareArray() {
