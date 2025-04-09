@@ -45,6 +45,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
     //if the player is currently dragging a piece this variable contains it.
     private Piece currPiece;
+    public Piece endPiece;
     private Square fromMoveSquare;
     
     //used to keep track of the x/y coordinates of the mouse.
@@ -74,6 +75,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             this.add(board[i][j]);
         }
         }  
+        
 //        	populate the board with squares here. Note that the board is composed of 64 squares alternating from 
 //        	white to black.
 
@@ -118,11 +120,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             board[6][i].put(new AntiPawn(false, RESOURCES_BPAWN_PNG));//my pawns
         }
     }
-	    //precondition - the board is initialized and contains a king of either color. The boolean kingColor corresponds to the color of the king we wish to know the status of.
-            //postcondition - returns true of the king is in check and false otherwise.
-	    public boolean isInCheck(boolean kingColor){
-            return false;
-    }
+
 
     public Square[][] getSquareArray() {
         return this.board;
@@ -139,6 +137,23 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     public Piece getCurrPiece() {
         return this.currPiece;
     }
+//precondition - the board is initialized and contains a king of either color. The boolean kingColor corresponds to the color of the king we wish to know the status of.
+          //postcondition - returns true of the king is in check and false otherwise.
+	public boolean isInCheck(boolean kingColor){
+		for(int i= 0; i< board.length; i++){
+            for(int j= 0; j< board[i].length; j++){
+                if (board[i][j].isOccupied() && board[i][j].getColor() != kingColor){
+                    for(Square s: board[i][j].getOccupyingPiece().getControlledSquares(board, board[i][j])){
+                        //find out if any of these "s" squares contain a king of color kingColor if they do we're in check!
+                        //if None of them do we are not in check.
+                        if (s.getOccupyingPiece() instanceof King && s.getColor() != kingColor)
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+}
 
     @Override
     public void paintComponent(Graphics g) {
@@ -159,7 +174,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 g.drawImage(img, currX, currY, null);
             }
         }
-        
+    
     }
 
     @Override
@@ -193,9 +208,18 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         if (currPiece != null){
          if (currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)&& whiteTurn == currPiece.getColor()){
             // failed code trying to fix issue; endSquare = null;
+            endPiece = endSquare.getOccupyingPiece();
             endSquare.put(currPiece);
             fromMoveSquare.put(null);
+
+             if (isInCheck(whiteTurn)){
+                //undo the move
+               fromMoveSquare.put(currPiece);
+               endSquare.put(endPiece);
+            }
             whiteTurn = !whiteTurn;
+           
+
          }
         }
        
