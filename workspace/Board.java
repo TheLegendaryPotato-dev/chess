@@ -142,11 +142,11 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	public boolean isInCheck(boolean kingColor){
 		for(int i= 0; i< board.length; i++){
             for(int j= 0; j< board[i].length; j++){
-                if (board[i][j].isOccupied() && board[i][j].getColor() != kingColor){
+                if (board[i][j].isOccupied() && board[i][j].getColor() == kingColor){
                     for(Square s: board[i][j].getOccupyingPiece().getControlledSquares(board, board[i][j])){
                         //find out if any of these "s" squares contain a king of color kingColor if they do we're in check!
                         //if None of them do we are not in check.
-                        if (s.getOccupyingPiece() instanceof King && s.getColor() != kingColor)
+                        if (s.getOccupyingPiece() instanceof King && s.getColor() == kingColor)
                         return true;
                     }
                 }

@@ -65,7 +65,7 @@ public class Helicopter extends Piece {
       for (int i = start.getRow()-2; i >= 0; i-=2){
         controlledsqs.add(b[i][start.getCol()]);
       }
-     return null;
+     return controlledsqs;
     }
     
 
